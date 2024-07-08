@@ -1,23 +1,28 @@
 export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[];
+  Array<Json> | boolean | number | string | { [key: string]: Json | undefined } | null;
 
 export type Database = {
   public: {
+    CompositeTypes: {
+      [_ in never]: never;
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    Functions: {
+      [_ in never]: never;
+    };
     Tables: {
       sudoku_puzzles: {
-        Row: {
-          created_at: string;
-          id: string;
-          puzzle: string;
-        };
         Insert: {
           created_at?: string;
           id?: string;
+          puzzle: string;
+        };
+        Relationships: [];
+        Row: {
+          created_at: string;
+          id: string;
           puzzle: string;
         };
         Update: {
@@ -25,19 +30,9 @@ export type Database = {
           id?: string;
           puzzle?: string;
         };
-        Relationships: [];
       };
     };
     Views: {
-      [_ in never]: never;
-    };
-    Functions: {
-      [_ in never]: never;
-    };
-    Enums: {
-      [_ in never]: never;
-    };
-    CompositeTypes: {
       [_ in never]: never;
     };
   };

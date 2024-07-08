@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -11,9 +12,9 @@ const fontSans = Inter({
 });
 
 export const metadata = {
+  description: "A Sudoku game built with ♥️",
   metadataBase: new URL(defaultUrl),
   title: "Grid Sudoku",
-  description: "A Sudoku game built with ♥️",
 };
 
 export default function RootLayout({
@@ -22,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={fontSans.variable}>
+    <html className={fontSans.variable} lang="en">
       <body className="bg-background text-foreground">
         <main className="min-h-screen flex flex-col items-center">
           {children}
