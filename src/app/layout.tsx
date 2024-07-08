@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google"
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -8,7 +8,7 @@ const defaultUrl = process.env.VERCEL_URL
 const fontSans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
-})
+});
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
