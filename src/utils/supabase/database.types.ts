@@ -1,5 +1,10 @@
 export type Json =
-  Array<Json> | boolean | number | string | { [key: string]: Json | undefined } | null;
+  | Array<Json>
+  | boolean
+  | number
+  | string
+  | { [key: string]: Json | undefined }
+  | null;
 
 export type Database = {
   public: {
