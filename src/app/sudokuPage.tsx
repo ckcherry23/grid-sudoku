@@ -1,17 +1,22 @@
 "use client";
 
 import { ArrowRightIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 
 import useSudoku from "@/hooks/useSudoku";
 
+import Board from "@/components/sudoku/board";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
+
+import type { Cell } from "@/types/types";
 
 export default function SudokuPage() {
   const { id, grid, handleCellChange } = useSudoku(
     "1",
     "293.16...71..32.69856.49213.32694......2.3...94.1.5326.2..6....481957..2....2...5",
   );
+  const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
@@ -34,6 +39,8 @@ export default function SudokuPage() {
             </Button>
           </div>
         </div>
+        <Board grid={grid} setSelectedCell={setSelectedCell} />
+        Selected Cell {selectedCell?.row}, {selectedCell?.col}
       </div>
     </div>
   );

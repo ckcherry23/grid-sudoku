@@ -1,4 +1,12 @@
-import type { Move, PossibleValue, SudokuGrid } from "@/types/types";
+import type { CellState } from "@/types/types";
+import {
+  type Cell,
+  FillType,
+  HighlightType,
+  type Move,
+  type PossibleValue,
+  type SudokuGrid,
+} from "@/types/types";
 
 export const parseSudoku = (sudokuString: string): SudokuGrid => {
   const grid: SudokuGrid = [];
@@ -40,3 +48,55 @@ export const isValidMove = (sudokuGrid: SudokuGrid, move: Move): boolean => {
 
   return true;
 };
+
+export function computeCellState(
+  grid: SudokuGrid,
+  initialGrid: SudokuGrid,
+  row: PossibleValue,
+  col: PossibleValue,
+  selectedCell: Cell,
+): CellState {
+  let fillType = FillType.VALID;
+  let highlightType = HighlightType.NONE;
+  const cell = grid[row][col];
+  const initialCell = initialGrid[row][col];
+
+  computeFillType();
+  computeHighlightType();
+
+  return {
+    fillType,
+    highlightType,
+  };
+
+  function computeFillType() {
+    if (initialCell !== null) {
+      fillType = FillType.INITIAL;
+    } else if (isValidMove(grid, { col, row, value: cell })) {
+      fillType = FillType.VALID;
+    } else {
+      fillType = FillType.INVALID;
+    }
+  }
+
+  function computeHighlightType() {
+    if (selectedCell.row === row && selectedCell.col === col) {
+      highlightType = HighlightType.SELECTED;
+    } else if (
+      selectedCell.row === row || // Same row
+      selectedCell.col === col || // Same column
+      (Math.floor(selectedCell.row / 3) === Math.floor(row / 3) && // Same 3x3 square
+        Math.floor(selectedCell.col / 3) === Math.floor(col / 3))
+    ) {
+      if (selectedCell.value === cell) {
+        highlightType = HighlightType.SAME_VALUE_CONFLICT;
+      } else {
+        highlightType = HighlightType.SAME_GROUP;
+      }
+    } else if (selectedCell.value === cell) {
+      highlightType = HighlightType.SAME_VALUE;
+    } else {
+      highlightType = HighlightType.NONE;
+    }
+  }
+}

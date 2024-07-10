@@ -17,8 +17,14 @@ export enum FillType {
 }
 
 export enum HighlightType {
+  NONE = "NONE",
   SAME_GROUP = "SAME_GROUP",
   SAME_VALUE = "SAME_VALUE",
   SAME_VALUE_CONFLICT = "SAME_VALUE_CONFLICT",
   SELECTED = "SELECTED",
 }
+
+export type CellState = {
+  fillType: FillType;
+  highlightType: HighlightType;
+};
