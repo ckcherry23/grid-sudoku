@@ -1,4 +1,7 @@
 {
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "editor.formatOnPaste": true,
