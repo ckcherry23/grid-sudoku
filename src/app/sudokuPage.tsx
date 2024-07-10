@@ -1,11 +1,13 @@
 "use client";
 
 import { ArrowRightIcon, ReloadIcon } from "@radix-ui/react-icons";
-import Heading from "@/components/ui/heading";
-import { Button } from "@/components/ui/button";
+
 import useSudoku from "@/hooks/useSudoku";
 
-export default async function SudokuPage() {
+import { Button } from "@/components/ui/button";
+import Heading from "@/components/ui/heading";
+
+export default function SudokuPage() {
   const { id, grid, handleCellChange } = useSudoku(
     "1",
     "293.16...71..32.69856.49213.32694......2.3...94.1.5326.2..6....481957..2....2...5",
@@ -20,8 +22,8 @@ export default async function SudokuPage() {
           </Heading>
           <div className="flex gap-x-3">
             <Button
-              variant="outline"
               className="gap-x-2 text-red-500 rounded-[18px] hover:text-red-500"
+              variant="outline"
             >
               <ReloadIcon className="stroke-[0.5px] fill-red-500 stroke-red-500  w-5 h-5" />
               Reset

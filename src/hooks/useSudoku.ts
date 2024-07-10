@@ -1,6 +1,8 @@
-import { PossibleValue } from "@/types/types";
-import { parseSudoku } from "@/utils/sudoku/sudokuHelpers";
 import { useState } from "react";
+
+import { parseSudoku } from "@/utils/sudoku/sudokuHelpers";
+
+import type { PossibleValue } from "@/types/types";
 
 const useSudoku = (id: string, sudokuString: string) => {
   const initialGrid = parseSudoku(sudokuString);
@@ -12,11 +14,12 @@ const useSudoku = (id: string, sudokuString: string) => {
     value: PossibleValue | null,
   ) => {
     const newGrid = [...grid];
+
     newGrid[row][col] = value;
     setGrid(newGrid);
   };
 
-  return { id, grid, handleCellChange };
+  return { grid, handleCellChange, id };
 };
 
 export default useSudoku;

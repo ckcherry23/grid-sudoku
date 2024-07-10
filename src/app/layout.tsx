@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={fontSans.variable}>
+    <html className={fontSans.variable} lang="en">
       <body className="bg-gray-50 text-foreground">
         <main className="min-h-screen flex flex-col items-center">
           {children}

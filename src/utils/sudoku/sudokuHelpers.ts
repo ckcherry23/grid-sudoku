@@ -1,13 +1,17 @@
-import { SudokuGrid, PossibleValue, Move } from "@/types/types";
+import type { Move, PossibleValue, SudokuGrid } from "@/types/types";
 
 export const parseSudoku = (sudokuString: string): SudokuGrid => {
-  let grid: SudokuGrid = [];
+  const grid: SudokuGrid = [];
+
   for (let i = 0; i < 9; i++) {
     grid[i] = sudokuString
       .slice(i * 9, (i + 1) * 9)
       .split("")
-      .map((char) => (char === "." ? null : (parseInt(char) as PossibleValue)));
+      .map((char) =>
+        char === "." ? null : (parseInt(char, 10) as PossibleValue),
+      );
   }
+
   return grid;
 };
 
@@ -23,8 +27,9 @@ export const isValidMove = (sudokuGrid: SudokuGrid, move: Move): boolean => {
   }
 
   // Check if value is valid for 3x3 square
-  let startRow = Math.floor(move.row / 3) * 3;
-  let startCol = Math.floor(move.col / 3) * 3;
+  const startRow = Math.floor(move.row / 3) * 3;
+  const startCol = Math.floor(move.col / 3) * 3;
+
   for (let i = startRow; i < startRow + 3; i++) {
     for (let j = startCol; j < startCol + 3; j++) {
       if (sudokuGrid[i][j] === move.value) {
