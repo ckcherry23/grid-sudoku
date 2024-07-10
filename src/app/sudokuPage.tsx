@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 
 import type { Cell } from "@/types/types";
+import ValuePicker from "@/components/sudoku/valuePicker";
 
 export default function SudokuPage() {
   const { id, grid, handleCellChange } = useSudoku(
@@ -40,7 +41,7 @@ export default function SudokuPage() {
           </div>
         </div>
         <Board grid={grid} setSelectedCell={setSelectedCell} />
-        Selected Cell {selectedCell?.row}, {selectedCell?.col}
+        <ValuePicker value={selectedCell?.value ?? null} />
       </div>
     </div>
   );
