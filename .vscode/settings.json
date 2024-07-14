@@ -1,4 +1,7 @@
 {
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "editor.formatOnPaste": true,
@@ -12,7 +15,7 @@
   "css.format.preserveNewLines": true,
   "typescript.format.enable": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
+    "source.fixAll": "explicit"
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
