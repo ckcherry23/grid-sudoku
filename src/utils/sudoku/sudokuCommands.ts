@@ -27,10 +27,10 @@ export class CellChangeCommand extends Command {
   }
 
   execute() {
-    this.grid[this.row][this.col] = this.value;
+    this.grid[this.row - 1][this.col - 1] = this.value;
   }
 
   undo() {
-    this.grid[this.row][this.col] = this.previousValue;
+    this.grid[this.row - 1][this.col - 1] = this.previousValue;
   }
 }

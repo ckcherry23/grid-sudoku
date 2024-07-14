@@ -6,11 +6,11 @@ import { useState } from "react";
 import useSudoku from "@/hooks/useSudoku";
 
 import Board from "@/components/sudoku/board";
+import ValuePicker from "@/components/sudoku/valuePicker";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 
 import type { Cell } from "@/types/types";
-import ValuePicker from "@/components/sudoku/valuePicker";
 
 export default function SudokuPage() {
   const { id, grid, handleCellChange } = useSudoku(
@@ -41,7 +41,14 @@ export default function SudokuPage() {
           </div>
         </div>
         <Board grid={grid} setSelectedCell={setSelectedCell} />
-        <ValuePicker value={selectedCell?.value ?? null} />
+        {selectedCell && (
+          <ValuePicker
+            setValue={(val) =>
+              handleCellChange(selectedCell.row, selectedCell.col, val)
+            }
+            value={selectedCell?.value ?? null}
+          />
+        )}
       </div>
     </div>
   );
