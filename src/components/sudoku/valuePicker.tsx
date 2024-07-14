@@ -3,11 +3,12 @@ import { CrossCircledIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 
 import type { PossibleValue } from "@/types/types";
+import { cn } from "@/utils/cn";
 
 type ValuePickerProps = {
+  isDisabled: boolean;
   setValue: (value: PossibleValue | null) => void;
   value: PossibleValue | null;
-  isDisabled: boolean;
 };
 
 export default function ValuePicker({
@@ -21,20 +22,28 @@ export default function ValuePicker({
         {Array.from({ length: 9 }, (_, i) => i + 1).map((val) => (
           <Button
             key={val}
-            className="text-base font-medium rounded-full"
+            className={cn(
+              "text-base font-medium rounded-full",
+              isDisabled && "bg-gray-300 text-gray-400",
+            )}
             size="icon"
             variant={val === value ? "default" : "secondary"}
-            onClick={() => setValue(val as PossibleValue)}
+            {...(!isDisabled
+              ? { onClick: () => setValue(val as PossibleValue) }
+              : {})}
           >
             {val}
           </Button>
         ))}
       </div>
       <Button
-        className="text-base font-medium rounded-full gap-x-2"
+        className={cn(
+          "text-base font-medium rounded-full gap-x-2",
+          isDisabled && "bg-gray-300 text-gray-400",
+        )}
         disabled={!value}
         variant="secondary"
-        onClick={() => setValue(null)}
+        {...(!isDisabled ? { onClick: () => setValue(null) } : {})}
       >
         <CrossCircledIcon className="w-5 h-5" />
         Erase

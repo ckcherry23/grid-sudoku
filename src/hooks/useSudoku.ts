@@ -50,6 +50,10 @@ const useSudoku = (id: string, sudokuString: string) => {
     executeCommand(command);
   };
 
+  const isEditable = (row: PossibleValue, col: PossibleValue): boolean => {
+    return initialGrid[row - 1][col - 1] === null;
+  };
+
   const getCellState = (
     row: PossibleValue,
     col: PossibleValue,
@@ -58,7 +62,7 @@ const useSudoku = (id: string, sudokuString: string) => {
     return computeCellState(grid, initialGrid, row, col, selectedCell);
   };
 
-  return { getCellState, grid, handleCellChange, id, redo, undo };
+  return { getCellState, grid, handleCellChange, id, isEditable, redo, undo };
 };
 
 export default useSudoku;

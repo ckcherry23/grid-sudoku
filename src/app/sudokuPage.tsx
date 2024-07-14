@@ -13,7 +13,7 @@ import Heading from "@/components/ui/heading";
 import type { Cell } from "@/types/types";
 
 export default function SudokuPage() {
-  const { id, grid, handleCellChange } = useSudoku(
+  const { id, grid, handleCellChange, isEditable } = useSudoku(
     "1",
     "293.16...71..32.69856.49213.32694......2.3...94.1.5326.2..6....481957..2....2...5",
   );
@@ -43,11 +43,11 @@ export default function SudokuPage() {
         <Board grid={grid} setSelectedCell={setSelectedCell} />
         {selectedCell && (
           <ValuePicker
+            isDisabled={!isEditable(selectedCell.row, selectedCell.col)}
             setValue={(val) =>
               handleCellChange(selectedCell.row, selectedCell.col, val)
             }
             value={grid[selectedCell.row - 1][selectedCell.col - 1] ?? null}
-            isDisabled={selectedCell?.value !== null}
           />
         )}
       </div>
