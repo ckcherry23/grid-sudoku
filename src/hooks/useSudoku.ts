@@ -45,7 +45,7 @@ const useSudoku = (id: string, sudokuString: string) => {
     col: PossibleValue,
     value: PossibleValue | null,
   ) => {
-    const command = new CellChangeCommand(grid, row, col, value);
+    const command = new CellChangeCommand(grid, initialGrid, row, col, value);
 
     executeCommand(command);
   };

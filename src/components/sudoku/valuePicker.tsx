@@ -7,9 +7,14 @@ import type { PossibleValue } from "@/types/types";
 type ValuePickerProps = {
   setValue: (value: PossibleValue | null) => void;
   value: PossibleValue | null;
+  isDisabled: boolean;
 };
 
-export default function ValuePicker({ value, setValue }: ValuePickerProps) {
+export default function ValuePicker({
+  value,
+  setValue,
+  isDisabled = false,
+}: ValuePickerProps) {
   return (
     <div className="flex gap-3 items-center justify-center mt-10">
       <div className="flex gap-3">

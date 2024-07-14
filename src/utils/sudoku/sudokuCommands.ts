@@ -7,6 +7,7 @@ export class Command {
 
 export class CellChangeCommand extends Command {
   grid: SudokuGrid;
+  initialGrid: SudokuGrid;
   row: PossibleValue;
   col: PossibleValue;
   value: PossibleValue | null;
@@ -14,20 +15,24 @@ export class CellChangeCommand extends Command {
 
   constructor(
     grid: SudokuGrid,
+    initialGrid: SudokuGrid,
     row: PossibleValue,
     col: PossibleValue,
     value: PossibleValue | null,
   ) {
     super();
     this.grid = grid;
+    this.initialGrid = initialGrid;
     this.row = row;
     this.col = col;
     this.value = value;
-    this.previousValue = grid[row][col];
+    this.previousValue = grid[row - 1][col - 1];
   }
 
   execute() {
-    this.grid[this.row - 1][this.col - 1] = this.value;
+    if (this.initialGrid[this.row - 1][this.col - 1] === null) {
+      this.grid[this.row - 1][this.col - 1] = this.value;
+    }
   }
 
   undo() {

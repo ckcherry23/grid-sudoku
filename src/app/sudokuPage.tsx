@@ -46,7 +46,8 @@ export default function SudokuPage() {
             setValue={(val) =>
               handleCellChange(selectedCell.row, selectedCell.col, val)
             }
-            value={selectedCell?.value ?? null}
+            value={grid[selectedCell.row - 1][selectedCell.col - 1] ?? null}
+            isDisabled={selectedCell?.value !== null}
           />
         )}
       </div>
