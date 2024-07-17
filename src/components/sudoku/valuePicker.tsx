@@ -24,7 +24,8 @@ export default function ValuePicker({
             key={val}
             className={cn(
               "text-base font-medium rounded-full",
-              isDisabled && "bg-gray-300 text-gray-400",
+              isDisabled &&
+                "bg-gray-300 text-gray-400 hover:bg-gray-300 hover:text-gray-400",
             )}
             size="icon"
             variant={val === value ? "default" : "secondary"}
@@ -39,7 +40,8 @@ export default function ValuePicker({
       <Button
         className={cn(
           "text-base font-medium rounded-full gap-x-2",
-          isDisabled && "bg-gray-300 text-gray-400",
+          isDisabled &&
+            "bg-gray-300 text-gray-400 hover:bg-gray-300 hover:text-gray-400",
         )}
         disabled={!value}
         variant="secondary"
