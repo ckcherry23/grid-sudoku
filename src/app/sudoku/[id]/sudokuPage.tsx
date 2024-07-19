@@ -12,19 +12,21 @@ import Heading from "@/components/ui/heading";
 
 import type { Cell } from "@/types/types";
 
-export default function SudokuPage() {
-  const { id, grid, handleCellChange, isEditable } = useSudoku(
-    "1",
-    "293.16...71..32.69856.49213.32694......2.3...94.1.5326.2..6....481957..2....2...5",
-  );
+type SudokuPageProps = {
+  id: string;
+  sudokuString: string;
+};
+
+export default function SudokuPage({ id, sudokuString }: SudokuPageProps) {
+  const { grid, handleCellChange, isEditable } = useSudoku(id, sudokuString);
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="w-full max-w-[540px] m-20">
+      <div className="w-full max-w-[540px] mt-20 mx-20">
         <div className="flex w-full justify-between">
           <Heading level="heading3" tag="h3">
-            Sudoku {id}
+            Sudoku
           </Heading>
           <div className="flex gap-x-3">
             <Button

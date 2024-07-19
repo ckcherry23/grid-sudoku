@@ -1,5 +1,5 @@
-import SudokuPage from "./sudokuPage";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  return <SudokuPage />;
+  redirect("sudoku/0");
 }
