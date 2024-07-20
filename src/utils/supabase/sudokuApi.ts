@@ -27,5 +27,32 @@ export async function getSudokuById(id: string) {
     return null;
   }
 
-  return data;
+  // get id of next puzzle
+  const { data: nextSudoku } = await client
+    .from("sudoku_puzzles")
+    .select("id")
+    .gt("id", id)
+    .order("id", { ascending: true })
+    .limit(1)
+    .single();
+
+  if (nextSudoku === null) {
+    // get id of first puzzle
+    const { data: firstSudoku } = await client
+      .from("sudoku_puzzles")
+      .select("id")
+      .order("id", { ascending: true })
+      .limit(1)
+      .single();
+
+    return {
+      ...data,
+      nextId: firstSudoku?.id ?? null,
+    };
+  }
+
+  return {
+    ...data,
+    nextId: nextSudoku?.id ?? null,
+  };
 }

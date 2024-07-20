@@ -11,13 +11,19 @@ import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 
 import type { Cell } from "@/types/types";
+import Link from "next/link";
 
 type SudokuPageProps = {
   id: string;
   sudokuString: string;
+  nextId: string | null;
 };
 
-export default function SudokuPage({ id, sudokuString }: SudokuPageProps) {
+export default function SudokuPage({
+  id,
+  sudokuString,
+  nextId,
+}: SudokuPageProps) {
   const { grid, handleCellChange, isEditable } = useSudoku(id, sudokuString);
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
 
@@ -36,10 +42,14 @@ export default function SudokuPage({ id, sudokuString }: SudokuPageProps) {
               <ReloadIcon className="stroke-[0.5px] fill-red-500 stroke-red-500  w-5 h-5" />
               Reset
             </Button>
-            <Button className="stroke-[0.5px] stroke-white rounded-[18px] gap-x-2">
-              Next
-              <ArrowRightIcon className="w-5 h-5" />
-            </Button>
+            {nextId && (
+              <Link href={`${nextId}`}>
+                <Button className="stroke-[0.5px] stroke-white rounded-[18px] gap-x-2">
+                  Next
+                  <ArrowRightIcon className="w-5 h-5" />
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
         <Board grid={grid} setSelectedCell={setSelectedCell} />

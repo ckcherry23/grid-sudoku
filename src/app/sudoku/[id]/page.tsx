@@ -7,5 +7,11 @@ export default async function Sudoku({ params }: { params: { id: string } }) {
     return <>Not found</>;
   }
 
-  return <SudokuPage id={sudoku.id} sudokuString={sudoku.puzzle} />;
+  return (
+    <SudokuPage
+      id={sudoku.id}
+      sudokuString={sudoku.puzzle}
+      nextId={sudoku.nextId}
+    />
+  );
 }
