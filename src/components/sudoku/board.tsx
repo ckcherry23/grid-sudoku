@@ -1,24 +1,38 @@
 import BoardCell from "./boardCell";
 
-import type { Cell, PossibleValue, SudokuGrid } from "@/types/types";
+import type {
+  Cell,
+  CellState,
+  GridCoordinate,
+  SudokuGrid,
+} from "@/types/types";
 
 type BoardProps = {
+  getCellState: (row: GridCoordinate, col: GridCoordinate) => CellState;
   grid: SudokuGrid;
   setSelectedCell: (cell: Cell | null) => void;
 };
 
-export default function Board({ grid, setSelectedCell }: BoardProps) {
+export default function Board({
+  grid,
+  setSelectedCell,
+  getCellState,
+}: BoardProps) {
   return (
-    <div className="grid grid-cols-9 mt-3">
+    <div className="grid grid-cols-9 mt-3 rounded-[17px] border border-gray-400 overflow-clip">
       {[...grid].map((row, rowIndex) =>
         row.map((cell, colIndex) => (
           <BoardCell
             key={`${rowIndex}, ${colIndex}`} // eslint-disable-line react/no-array-index-key
+            cellState={getCellState(
+              rowIndex as GridCoordinate,
+              colIndex as GridCoordinate,
+            )}
             value={cell}
             onClick={() =>
               setSelectedCell({
-                col: (colIndex + 1) as PossibleValue,
-                row: (rowIndex + 1) as PossibleValue,
+                col: colIndex as GridCoordinate,
+                row: rowIndex as GridCoordinate,
                 value: cell,
               })
             }

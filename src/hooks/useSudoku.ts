@@ -4,7 +4,12 @@ import type { Command } from "@/utils/sudoku/sudokuCommands";
 import { CellChangeCommand } from "@/utils/sudoku/sudokuCommands";
 import { computeCellState, parseSudoku } from "@/utils/sudoku/sudokuHelpers";
 
-import type { Cell, CellState, PossibleValue } from "@/types/types";
+import type {
+  Cell,
+  CellState,
+  GridCoordinate,
+  PossibleValue,
+} from "@/types/types";
 
 const useSudoku = (id: string, sudokuString: string) => {
   const initialGrid = parseSudoku(sudokuString);
@@ -41,23 +46,23 @@ const useSudoku = (id: string, sudokuString: string) => {
   };
 
   const handleCellChange = (
-    row: PossibleValue,
-    col: PossibleValue,
-    value: PossibleValue | null,
+    row: GridCoordinate,
+    col: GridCoordinate,
+    value: PossibleValue,
   ) => {
     const command = new CellChangeCommand(grid, initialGrid, row, col, value);
 
     executeCommand(command);
   };
 
-  const isEditable = (row: PossibleValue, col: PossibleValue): boolean => {
-    return initialGrid[row - 1][col - 1] === null;
+  const isEditable = (row: GridCoordinate, col: GridCoordinate): boolean => {
+    return initialGrid[row][col] === null;
   };
 
   const getCellState = (
-    row: PossibleValue,
-    col: PossibleValue,
-    selectedCell: Cell,
+    row: GridCoordinate,
+    col: GridCoordinate,
+    selectedCell: Cell | null,
   ): CellState => {
     return computeCellState(grid, initialGrid, row, col, selectedCell);
   };

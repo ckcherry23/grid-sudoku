@@ -8,8 +8,8 @@ import type { PossibleValue } from "@/types/types";
 
 type ValuePickerProps = {
   isDisabled: boolean;
-  setValue: (value: PossibleValue | null) => void;
-  value: PossibleValue | null;
+  setValue: (value: PossibleValue) => void;
+  value: PossibleValue;
 };
 
 export default function ValuePicker({
@@ -41,10 +41,9 @@ export default function ValuePicker({
       <Button
         className={cn(
           "text-base font-medium rounded-full gap-x-2",
-          isDisabled &&
+          (isDisabled || !value) &&
             "bg-gray-300 text-gray-400 hover:bg-gray-300 hover:text-gray-400",
         )}
-        disabled={!value}
         variant="secondary"
         {...(!isDisabled ? { onClick: () => setValue(null) } : {})}
       >

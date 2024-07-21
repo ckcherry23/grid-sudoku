@@ -1,4 +1,5 @@
-import type { CellState } from "@/types/types";
+import type { CellState, GridCoordinate } from "@/types/types";
+import { BorderType } from "@/types/types";
 import {
   type Cell,
   FillType,
@@ -27,8 +28,8 @@ export const isValidMove = (sudokuGrid: SudokuGrid, move: Move): boolean => {
   // Check if value is valid for row and column
   for (let i = 0; i < 9; i++) {
     if (
-      sudokuGrid[move.row][i] === move.value ||
-      sudokuGrid[i][move.col] === move.value
+      (sudokuGrid[move.row][i] === move.value && i !== move.col) ||
+      (sudokuGrid[i][move.col] === move.value && i !== move.row)
     ) {
       return false;
     }
@@ -40,7 +41,7 @@ export const isValidMove = (sudokuGrid: SudokuGrid, move: Move): boolean => {
 
   for (let i = startRow; i < startRow + 3; i++) {
     for (let j = startCol; j < startCol + 3; j++) {
-      if (sudokuGrid[i][j] === move.value) {
+      if (sudokuGrid[i][j] === move.value && i !== move.row && j !== move.col) {
         return false;
       }
     }
@@ -52,27 +53,31 @@ export const isValidMove = (sudokuGrid: SudokuGrid, move: Move): boolean => {
 export function computeCellState(
   grid: SudokuGrid,
   initialGrid: SudokuGrid,
-  row: PossibleValue,
-  col: PossibleValue,
-  selectedCell: Cell,
+  row: GridCoordinate,
+  col: GridCoordinate,
+  selectedCell: Cell | null,
 ): CellState {
   let fillType = FillType.VALID;
   let highlightType = HighlightType.NONE;
-  const cell = grid[row][col];
-  const initialCell = initialGrid[row][col];
+  let borderTypes: Array<BorderType> = [];
+
+  const cellValue = grid[row][col];
+  const initialCellValue = initialGrid[row][col];
 
   computeFillType();
   computeHighlightType();
+  computeBorderTypes();
 
   return {
+    borderTypes,
     fillType,
     highlightType,
   };
 
   function computeFillType() {
-    if (initialCell !== null) {
+    if (initialCellValue !== null) {
       fillType = FillType.INITIAL;
-    } else if (isValidMove(grid, { col, row, value: cell })) {
+    } else if (isValidMove(grid, { col, row, value: cellValue })) {
       fillType = FillType.VALID;
     } else {
       fillType = FillType.INVALID;
@@ -80,6 +85,12 @@ export function computeCellState(
   }
 
   function computeHighlightType() {
+    if (selectedCell === null) {
+      highlightType = HighlightType.NONE;
+
+      return;
+    }
+
     if (selectedCell.row === row && selectedCell.col === col) {
       highlightType = HighlightType.SELECTED;
     } else if (
@@ -88,15 +99,50 @@ export function computeCellState(
       (Math.floor(selectedCell.row / 3) === Math.floor(row / 3) && // Same 3x3 square
         Math.floor(selectedCell.col / 3) === Math.floor(col / 3))
     ) {
-      if (selectedCell.value === cell) {
+      if (selectedCell.value === cellValue && selectedCell.value !== null) {
         highlightType = HighlightType.SAME_VALUE_CONFLICT;
       } else {
         highlightType = HighlightType.SAME_GROUP;
       }
-    } else if (selectedCell.value === cell) {
+    } else if (
+      selectedCell.value === cellValue &&
+      selectedCell.value !== null
+    ) {
       highlightType = HighlightType.SAME_VALUE;
     } else {
       highlightType = HighlightType.NONE;
     }
+  }
+
+  type BorderCondition = {
+    condition: boolean;
+    type: BorderType;
+  };
+
+  function computeBorderTypes() {
+    borderTypes = [BorderType.DEFAULT];
+
+    const borderConditions: Array<BorderCondition> = [
+      { condition: row % 3 === 0, type: BorderType.TOP_EDGE },
+      { condition: row % 3 === 2, type: BorderType.BOTTOM_EDGE },
+      { condition: col % 3 === 0, type: BorderType.LEFT_EDGE },
+      { condition: col % 3 === 2, type: BorderType.RIGHT_EDGE },
+      { condition: row === 0 && col === 0, type: BorderType.TOP_LEFT_CORNER },
+      { condition: row === 0 && col === 8, type: BorderType.TOP_RIGHT_CORNER },
+      {
+        condition: row === 8 && col === 0,
+        type: BorderType.BOTTOM_LEFT_CORNER,
+      },
+      {
+        condition: row === 8 && col === 8,
+        type: BorderType.BOTTOM_RIGHT_CORNER,
+      },
+    ];
+
+    borderConditions.forEach(({ condition, type }) => {
+      if (condition) {
+        borderTypes.push(type);
+      }
+    });
   }
 }

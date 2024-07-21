@@ -1,14 +1,67 @@
-import type { PossibleValue } from "@/types/types";
+import { cva } from "class-variance-authority";
+
+import { cn } from "@/utils/cn";
+
+import type { CellState } from "@/types/types";
+import { type PossibleValue } from "@/types/types";
 
 type BoardCellProps = {
+  cellState: CellState;
   onClick: () => void;
-  value: PossibleValue | null;
+  value: PossibleValue;
 };
 
-export default function BoardCell({ value, onClick }: BoardCellProps) {
+const boardCellVariants = cva(
+  "max-w-[60px] h-[60px] flex items-center justify-center text-center text-3xl font-bold bg-background hover:bg-sky-200 rounded-none",
+  {
+    defaultVariants: {
+      fill: "initial",
+      highlight: "none",
+    },
+    variants: {
+      fill: {
+        initial: "text-black",
+        invalid: "text-red-500",
+        valid: "text-sky-700",
+      },
+      highlight: {
+        none: "",
+        sameGroup: "bg-sky-50",
+        sameValue: "bg-sky-100",
+        sameValueConflict: "bg-red-100",
+        selected: "bg-sky-200",
+      },
+    },
+  },
+);
+
+const borderStyles = {
+  bottomEdge: "border-b border-b-gray-400",
+  bottomLeftCorner: "rounded-bl-2xl",
+  bottomRightCorner: "rounded-br-2xl",
+  default: "border-[0.5px] border-gray-300",
+  leftEdge: "border-l border-l-gray-400",
+  rightEdge: "border-r border-r-gray-400",
+  topEdge: "border-t border-t-gray-400",
+  topLeftCorner: "rounded-tl-2xl",
+  topRightCorner: "rounded-tr-2xl",
+};
+
+export default function BoardCell({
+  value,
+  onClick,
+  cellState,
+}: BoardCellProps) {
+  const fill = cellState.fillType;
+  const highlight = cellState.highlightType;
+  const { borderTypes } = cellState;
+
   return (
     <button
-      className="max-w-[60px] h-[60px] flex items-center justify-center text-center text-3xl font-bold border-[0.5px] bg-background hover:bg-accent rounded-none"
+      className={cn(
+        boardCellVariants({ fill, highlight }),
+        borderTypes.map((b) => borderStyles[b]),
+      )}
       type="button"
       onClick={onClick}
     >
