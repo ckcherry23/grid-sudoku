@@ -1,18 +1,19 @@
 import { createClient } from "@/utils/supabase/server";
 
-export async function getSudokuIds() {
+export async function getFirstSudokuId() {
   const client = createClient();
   const { data, error } = await client
     .from("sudoku_puzzles")
     .select("id")
-    .order("created_at", { ascending: true })
-    .order("id", { ascending: true });
+    .order("id", { ascending: true })
+    .limit(1)
+    .single();
 
   if (error) {
-    throw error;
+    return null;
   }
 
-  return data.map((sudoku) => sudoku.id);
+  return data?.id ?? null;
 }
 
 export async function getSudokuById(id: string) {
