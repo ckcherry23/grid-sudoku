@@ -1,5 +1,7 @@
-import SudokuPage from "./sudokuPage";
+import { redirect } from "next/navigation";
+
+import { getFirstSudokuId } from "@/utils/supabase/sudokuApi";
 
 export default async function Home() {
-  return <SudokuPage />;
+  redirect(`sudoku/${await getFirstSudokuId()}`);
 }
