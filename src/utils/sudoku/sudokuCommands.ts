@@ -1,4 +1,4 @@
-import type { PossibleValue, SudokuGrid } from "@/types/types";
+import type { GridCoordinate, PossibleValue, SudokuGrid } from "@/types/types";
 
 export class Command {
   execute() {}
@@ -8,17 +8,17 @@ export class Command {
 export class CellChangeCommand extends Command {
   grid: SudokuGrid;
   initialGrid: SudokuGrid;
-  row: PossibleValue;
-  col: PossibleValue;
-  value: PossibleValue | null;
-  previousValue: PossibleValue | null;
+  row: GridCoordinate;
+  col: GridCoordinate;
+  value: PossibleValue;
+  previousValue: PossibleValue;
 
   constructor(
     grid: SudokuGrid,
     initialGrid: SudokuGrid,
-    row: PossibleValue,
-    col: PossibleValue,
-    value: PossibleValue | null,
+    row: GridCoordinate,
+    col: GridCoordinate,
+    value: PossibleValue,
   ) {
     super();
     this.grid = grid;
@@ -26,16 +26,16 @@ export class CellChangeCommand extends Command {
     this.row = row;
     this.col = col;
     this.value = value;
-    this.previousValue = grid[row - 1][col - 1];
+    this.previousValue = grid[row][col];
   }
 
   execute() {
-    if (this.initialGrid[this.row - 1][this.col - 1] === null) {
-      this.grid[this.row - 1][this.col - 1] = this.value;
+    if (this.initialGrid[this.row][this.col] === null) {
+      this.grid[this.row][this.col] = this.value;
     }
   }
 
   undo() {
-    this.grid[this.row - 1][this.col - 1] = this.previousValue;
+    this.grid[this.row][this.col] = this.previousValue;
   }
 }

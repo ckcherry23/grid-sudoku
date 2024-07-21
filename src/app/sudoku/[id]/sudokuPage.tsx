@@ -24,7 +24,10 @@ export default function SudokuPage({
   sudokuString,
   nextId,
 }: SudokuPageProps) {
-  const { grid, handleCellChange, isEditable } = useSudoku(id, sudokuString);
+  const { grid, getCellState, handleCellChange, isEditable } = useSudoku(
+    id,
+    sudokuString,
+  );
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
 
   return (
@@ -52,14 +55,19 @@ export default function SudokuPage({
             )}
           </div>
         </div>
-        <Board grid={grid} setSelectedCell={setSelectedCell} />
+        <Board
+          grid={grid}
+          setSelectedCell={setSelectedCell}
+          getCellState={(r, c) => getCellState(r, c, selectedCell)}
+        />
         {selectedCell && (
           <ValuePicker
             isDisabled={!isEditable(selectedCell.row, selectedCell.col)}
-            setValue={(val) =>
-              handleCellChange(selectedCell.row, selectedCell.col, val)
-            }
-            value={grid[selectedCell.row - 1][selectedCell.col - 1] ?? null}
+            setValue={(val) => {
+              handleCellChange(selectedCell.row, selectedCell.col, val);
+              setSelectedCell({ ...selectedCell, value: val });
+            }}
+            value={selectedCell.value}
           />
         )}
       </div>
