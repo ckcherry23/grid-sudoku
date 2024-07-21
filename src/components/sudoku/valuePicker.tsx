@@ -2,8 +2,9 @@ import { CrossCircledIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 
-import type { PossibleValue } from "@/types/types";
 import { cn } from "@/utils/cn";
+
+import type { PossibleValue } from "@/types/types";
 
 type ValuePickerProps = {
   isDisabled: boolean;

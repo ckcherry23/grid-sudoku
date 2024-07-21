@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRightIcon, ReloadIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 import { useState } from "react";
 
 import useSudoku from "@/hooks/useSudoku";
@@ -11,12 +12,11 @@ import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 
 import type { Cell } from "@/types/types";
-import Link from "next/link";
 
 type SudokuPageProps = {
   id: string;
-  sudokuString: string;
   nextId: string | null;
+  sudokuString: string;
 };
 
 export default function SudokuPage({

@@ -4,23 +4,23 @@ import type { PropsWithChildren } from "react";
 import { createContext, useContext, useState } from "react";
 
 type SudokuProgress = {
-  sudokus: Array<string>;
   currentSudoku: number;
+  sudokus: Array<string>;
 };
 
 type SudokuContextType = Readonly<{
-  sudokuProgress: SudokuProgress;
   setSudokuProgress: (sudokuProgress: SudokuProgress) => void;
+  sudokuProgress: SudokuProgress;
 }>;
 
 export const defaultSudokuProgress: SudokuProgress = {
-  sudokus: [],
   currentSudoku: 0,
+  sudokus: [],
 };
 
 const SudokuContext = createContext<SudokuContextType>({
-  sudokuProgress: defaultSudokuProgress,
   setSudokuProgress: () => {},
+  sudokuProgress: defaultSudokuProgress,
 });
 
 export function useSudokuContext() {
@@ -37,8 +37,8 @@ export default function SudokuProvider({ children }: Props) {
   return (
     <SudokuContext.Provider
       value={{
-        sudokuProgress,
         setSudokuProgress,
+        sudokuProgress,
       }}
     >
       {children}
