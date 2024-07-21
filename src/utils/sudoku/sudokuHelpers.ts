@@ -1,4 +1,5 @@
-import { BorderType, CellState, GridCoordinate } from "@/types/types";
+import type { CellState, GridCoordinate } from "@/types/types";
+import { BorderType } from "@/types/types";
 import {
   type Cell,
   FillType,
@@ -58,7 +59,7 @@ export function computeCellState(
 ): CellState {
   let fillType = FillType.VALID;
   let highlightType = HighlightType.NONE;
-  let borderTypes: BorderType[] = [];
+  let borderTypes: Array<BorderType> = [];
 
   const cellValue = grid[row][col];
   const initialCellValue = initialGrid[row][col];
@@ -68,9 +69,9 @@ export function computeCellState(
   computeBorderTypes();
 
   return {
+    borderTypes,
     fillType,
     highlightType,
-    borderTypes,
   };
 
   function computeFillType() {
@@ -86,6 +87,7 @@ export function computeCellState(
   function computeHighlightType() {
     if (selectedCell === null) {
       highlightType = HighlightType.NONE;
+
       return;
     }
 

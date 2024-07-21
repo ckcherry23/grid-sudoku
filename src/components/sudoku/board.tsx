@@ -4,14 +4,13 @@ import type {
   Cell,
   CellState,
   GridCoordinate,
-  PossibleValue,
   SudokuGrid,
 } from "@/types/types";
 
 type BoardProps = {
+  getCellState: (row: GridCoordinate, col: GridCoordinate) => CellState;
   grid: SudokuGrid;
   setSelectedCell: (cell: Cell | null) => void;
-  getCellState: (row: GridCoordinate, col: GridCoordinate) => CellState;
 };
 
 export default function Board({
@@ -25,11 +24,11 @@ export default function Board({
         row.map((cell, colIndex) => (
           <BoardCell
             key={`${rowIndex}, ${colIndex}`} // eslint-disable-line react/no-array-index-key
-            value={cell}
             cellState={getCellState(
               rowIndex as GridCoordinate,
               colIndex as GridCoordinate,
             )}
+            value={cell}
             onClick={() =>
               setSelectedCell({
                 col: colIndex as GridCoordinate,

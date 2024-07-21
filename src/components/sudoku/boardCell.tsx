@@ -1,11 +1,14 @@
-import { CellState, type PossibleValue } from "@/types/types";
-import { cn } from "@/utils/cn";
 import { cva } from "class-variance-authority";
 
+import { cn } from "@/utils/cn";
+
+import type { CellState } from "@/types/types";
+import { type PossibleValue } from "@/types/types";
+
 type BoardCellProps = {
-  onClick: () => void;
-  value: PossibleValue | null;
   cellState: CellState;
+  onClick: () => void;
+  value: PossibleValue;
 };
 
 const boardCellVariants = cva(
@@ -33,15 +36,15 @@ const boardCellVariants = cva(
 );
 
 const borderStyles = {
-  default: "border-[0.5px] border-gray-300",
-  topEdge: "border-t border-t-gray-400",
-  rightEdge: "border-r border-r-gray-400",
   bottomEdge: "border-b border-b-gray-400",
-  leftEdge: "border-l border-l-gray-400",
-  topRightCorner: "rounded-tr-2xl",
-  bottomRightCorner: "rounded-br-2xl",
   bottomLeftCorner: "rounded-bl-2xl",
+  bottomRightCorner: "rounded-br-2xl",
+  default: "border-[0.5px] border-gray-300",
+  leftEdge: "border-l border-l-gray-400",
+  rightEdge: "border-r border-r-gray-400",
+  topEdge: "border-t border-t-gray-400",
   topLeftCorner: "rounded-tl-2xl",
+  topRightCorner: "rounded-tr-2xl",
 };
 
 export default function BoardCell({
@@ -51,7 +54,7 @@ export default function BoardCell({
 }: BoardCellProps) {
   const fill = cellState.fillType;
   const highlight = cellState.highlightType;
-  const borderTypes = cellState.borderTypes;
+  const { borderTypes } = cellState;
 
   return (
     <button

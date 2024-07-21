@@ -8,8 +8,8 @@ import type { PossibleValue } from "@/types/types";
 
 type ValuePickerProps = {
   isDisabled: boolean;
-  setValue: (value: PossibleValue | null) => void;
-  value: PossibleValue | null;
+  setValue: (value: PossibleValue) => void;
+  value: PossibleValue;
 };
 
 export default function ValuePicker({

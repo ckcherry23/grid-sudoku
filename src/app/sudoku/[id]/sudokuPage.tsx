@@ -56,9 +56,9 @@ export default function SudokuPage({
           </div>
         </div>
         <Board
+          getCellState={(r, c) => getCellState(r, c, selectedCell)}
           grid={grid}
           setSelectedCell={setSelectedCell}
-          getCellState={(r, c) => getCellState(r, c, selectedCell)}
         />
         {selectedCell && (
           <ValuePicker
