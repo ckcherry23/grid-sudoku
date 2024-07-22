@@ -1,11 +1,5 @@
 import SudokuPage from "./sudokuPage";
 
 export default function Loading() {
-  return (
-    <SudokuPage
-      id=""
-      nextId={null}
-      sudokuString="................................................................................."
-    />
-  );
+  return <SudokuPage id="" nextId={null} sudokuString="" />;
 }

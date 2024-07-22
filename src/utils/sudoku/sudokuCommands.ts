@@ -1,8 +1,8 @@
 import type { GridCoordinate, PossibleValue, SudokuGrid } from "@/types/types";
 
 export class Command {
-  execute(grid: SudokuGrid) {}
-  undo(grid: SudokuGrid) {}
+  execute(grid: SudokuGrid) {} // eslint-disable-line @typescript-eslint/no-unused-vars
+  undo(grid: SudokuGrid) {} // eslint-disable-line @typescript-eslint/no-unused-vars
 }
 
 export class CellChangeCommand extends Command {
