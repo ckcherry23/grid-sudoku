@@ -39,3 +39,34 @@ export class CellChangeCommand extends Command {
     this.grid[this.row][this.col] = this.previousValue;
   }
 }
+
+export class ResetCommand extends Command {
+  grid: SudokuGrid;
+  initialGrid: SudokuGrid;
+  previousGrid: SudokuGrid;
+
+  constructor(grid: SudokuGrid, initialGrid: SudokuGrid) {
+    super();
+    this.grid = grid;
+    this.initialGrid = initialGrid;
+    this.previousGrid = grid.map((row) => row.slice());
+  }
+
+  execute() {
+    this.grid.forEach((row, rowIndex) => {
+      row.forEach((_, colIndex) => {
+        if (this.initialGrid[rowIndex][colIndex] === null) {
+          this.grid[rowIndex][colIndex] = null;
+        }
+      });
+    });
+  }
+
+  undo() {
+    this.grid.forEach((row, rowIndex) => {
+      row.forEach((_, colIndex) => {
+        this.grid[rowIndex][colIndex] = this.previousGrid[rowIndex][colIndex];
+      });
+    });
+  }
+}

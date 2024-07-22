@@ -1,4 +1,4 @@
-import BoardCell from "./boardCell";
+import CellBox from "./cellBox";
 
 import type {
   Cell,
@@ -22,7 +22,7 @@ export default function Board({
     <div className="grid grid-cols-9 mt-3 rounded-[17px] border border-gray-400 overflow-clip">
       {[...grid].map((row, rowIndex) =>
         row.map((cell, colIndex) => (
-          <BoardCell
+          <CellBox
             key={`${rowIndex}, ${colIndex}`} // eslint-disable-line react/no-array-index-key
             cellState={getCellState(
               rowIndex as GridCoordinate,
