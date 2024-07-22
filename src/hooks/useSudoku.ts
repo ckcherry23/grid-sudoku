@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import type { Command } from "@/utils/sudoku/sudokuCommands";
-import { CellChangeCommand } from "@/utils/sudoku/sudokuCommands";
+import { CellChangeCommand, ResetCommand } from "@/utils/sudoku/sudokuCommands";
 import { computeCellState, parseSudoku } from "@/utils/sudoku/sudokuHelpers";
 
 import type {
@@ -15,22 +15,24 @@ const useSudoku = (id: string, sudokuString: string) => {
   const initialGrid = parseSudoku(sudokuString);
   const [grid, setGrid] = useState(initialGrid);
 
-  const commandStack: Array<Command> = [];
-  let undoStack: Array<Command> = [];
+  const [commandStack, setCommandStack] = useState<Array<Command>>([]);
+  const [undoStack, setUndoStack] = useState<Array<Command>>([]);
 
   const executeCommand = (command: Command) => {
     command.execute();
-    commandStack.push(command);
+    setCommandStack([...commandStack, command]);
     setGrid([...grid]);
-    undoStack = [];
+    setUndoStack([]);
   };
 
   const undo = () => {
     const command = commandStack.pop();
 
+    setCommandStack([...commandStack]);
+
     if (command) {
       command.undo();
-      undoStack.push(command);
+      setUndoStack([...undoStack, command]);
       setGrid([...grid]);
     }
   };
@@ -38,9 +40,11 @@ const useSudoku = (id: string, sudokuString: string) => {
   const redo = () => {
     const command = undoStack.pop();
 
+    setUndoStack([...undoStack]);
+
     if (command) {
       command.execute();
-      commandStack.push(command);
+      setCommandStack([...commandStack, command]);
       setGrid([...grid]);
     }
   };
@@ -51,6 +55,12 @@ const useSudoku = (id: string, sudokuString: string) => {
     value: PossibleValue,
   ) => {
     const command = new CellChangeCommand(grid, initialGrid, row, col, value);
+
+    executeCommand(command);
+  };
+
+  const handleReset = () => {
+    const command = new ResetCommand(grid, initialGrid);
 
     executeCommand(command);
   };
@@ -67,7 +77,16 @@ const useSudoku = (id: string, sudokuString: string) => {
     return computeCellState(grid, initialGrid, row, col, selectedCell);
   };
 
-  return { getCellState, grid, handleCellChange, id, isEditable, redo, undo };
+  return {
+    getCellState,
+    grid,
+    handleCellChange,
+    handleReset,
+    id,
+    isEditable,
+    redo,
+    undo,
+  };
 };
 
 export default useSudoku;
