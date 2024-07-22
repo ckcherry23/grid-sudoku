@@ -1,4 +1,7 @@
+"use client";
+
 import { useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
 
 import type { Command } from "@/utils/sudoku/sudokuCommands";
 import { CellChangeCommand, ResetCommand } from "@/utils/sudoku/sudokuCommands";
@@ -13,13 +16,15 @@ import type {
 
 const useSudoku = (id: string, sudokuString: string) => {
   const initialGrid = parseSudoku(sudokuString);
-  const [grid, setGrid] = useState(initialGrid);
+  const [grid, setGrid] = useLocalStorage(id, initialGrid, {
+    initializeWithValue: false,
+  });
 
   const [commandStack, setCommandStack] = useState<Array<Command>>([]);
   const [undoStack, setUndoStack] = useState<Array<Command>>([]);
 
   const executeCommand = (command: Command) => {
-    command.execute();
+    command.execute(grid);
     setCommandStack([...commandStack, command]);
     setGrid([...grid]);
     setUndoStack([]);
@@ -31,7 +36,7 @@ const useSudoku = (id: string, sudokuString: string) => {
     setCommandStack([...commandStack]);
 
     if (command) {
-      command.undo();
+      command.undo(grid);
       setUndoStack([...undoStack, command]);
       setGrid([...grid]);
     }
@@ -43,7 +48,7 @@ const useSudoku = (id: string, sudokuString: string) => {
     setUndoStack([...undoStack]);
 
     if (command) {
-      command.execute();
+      command.execute(grid);
       setCommandStack([...commandStack, command]);
       setGrid([...grid]);
     }
