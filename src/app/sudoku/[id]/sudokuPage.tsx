@@ -37,7 +37,7 @@ export default function SudokuPage({
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="w-full max-w-[540px] mt-20 mx-20">
+      <div className="w-full max-w-[540px] m-4 md:mt-20 md:mx-20">
         <div className="flex w-full justify-between">
           <div className="flex gap-x-4 items-center">
             <Heading level="heading3" tag="h3">
