@@ -2,7 +2,7 @@
 
 import { ArrowRightIcon, ReloadIcon, ResetIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import useSudoku from "@/hooks/useSudoku";
 
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 
 import type { Cell } from "@/types/types";
+import CommonAlertDialog from "@/components/common/commonAlertDialog";
 
 type SudokuPageProps = {
   id: string;
@@ -35,9 +36,25 @@ export default function SudokuPage({
     redo,
   } = useSudoku(id, sudokuString);
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
+  const [isSolvedDialogOpen, setIsSolvedDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (selectedCell && isSudokuSolved) {
+      setIsSolvedDialogOpen(true);
+    } else {
+      setIsSolvedDialogOpen(false);
+    }
+  }, [isSudokuSolved]);
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
+      <CommonAlertDialog
+        title="Congratulations!"
+        description="You have solved the Sudoku."
+        actionText="Continue"
+        isOpen={isSolvedDialogOpen}
+        setIsOpen={setIsSolvedDialogOpen}
+      />
       <div className="w-full max-w-[540px] m-4 md:mt-20 md:mx-20">
         <div className="flex w-full justify-between">
           <div className="flex gap-x-4 items-center">
