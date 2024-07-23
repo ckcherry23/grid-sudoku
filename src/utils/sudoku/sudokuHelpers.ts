@@ -50,13 +50,13 @@ export const isValidMove = (sudokuGrid: SudokuGrid, move: Move): boolean => {
   return true;
 };
 
-export function computeCellState(
+export const computeCellState = (
   grid: SudokuGrid,
   initialGrid: SudokuGrid,
   row: GridCoordinate,
   col: GridCoordinate,
   selectedCell: Cell | null,
-): CellState {
+): CellState => {
   let fillType = FillType.VALID;
   let highlightType = HighlightType.NONE;
   let borderTypes: Array<BorderType> = [];
@@ -145,4 +145,47 @@ export function computeCellState(
       }
     });
   }
-}
+};
+
+export const isSolved = (grid: SudokuGrid): boolean => {
+  // check if all rows are valid
+  for (let i = 0; i < 9; i++) {
+    const row = new Set(grid[i]);
+
+    if (row.size !== 9 || row.has(null)) {
+      return false;
+    }
+  }
+
+  // check if all columns are valid
+  for (let i = 0; i < 9; i++) {
+    const column = new Set();
+
+    for (let j = 0; j < 9; j++) {
+      column.add(grid[j][i]);
+    }
+
+    if (column.size !== 9 || column.has(null)) {
+      return false;
+    }
+  }
+
+  // check if all 3x3 squares are valid
+  for (let i = 0; i < 9; i += 3) {
+    for (let j = 0; j < 9; j += 3) {
+      const square = new Set();
+
+      for (let k = i; k < i + 3; k++) {
+        for (let l = j; l < j + 3; l++) {
+          square.add(grid[k][l]);
+        }
+      }
+
+      if (square.size !== 9 || square.has(null)) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+};

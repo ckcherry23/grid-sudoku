@@ -1,8 +1,8 @@
 import type { GridCoordinate, PossibleValue, SudokuGrid } from "@/types/types";
 
 export class Command {
-  execute() {}
-  undo() {}
+  execute(grid: SudokuGrid) {} // eslint-disable-line @typescript-eslint/no-unused-vars
+  undo(grid: SudokuGrid) {} // eslint-disable-line @typescript-eslint/no-unused-vars
 }
 
 export class CellChangeCommand extends Command {
@@ -29,14 +29,14 @@ export class CellChangeCommand extends Command {
     this.previousValue = grid[row][col];
   }
 
-  execute() {
+  execute(grid: SudokuGrid) {
     if (this.initialGrid[this.row][this.col] === null) {
-      this.grid[this.row][this.col] = this.value;
+      grid[this.row][this.col] = this.value;
     }
   }
 
-  undo() {
-    this.grid[this.row][this.col] = this.previousValue;
+  undo(grid: SudokuGrid) {
+    grid[this.row][this.col] = this.previousValue;
   }
 }
 
@@ -52,20 +52,20 @@ export class ResetCommand extends Command {
     this.previousGrid = grid.map((row) => row.slice());
   }
 
-  execute() {
-    this.grid.forEach((row, rowIndex) => {
+  execute(grid: SudokuGrid) {
+    grid.forEach((row, rowIndex) => {
       row.forEach((_, colIndex) => {
         if (this.initialGrid[rowIndex][colIndex] === null) {
-          this.grid[rowIndex][colIndex] = null;
+          grid[rowIndex][colIndex] = null;
         }
       });
     });
   }
 
-  undo() {
-    this.grid.forEach((row, rowIndex) => {
+  undo(grid: SudokuGrid) {
+    grid.forEach((row, rowIndex) => {
       row.forEach((_, colIndex) => {
-        this.grid[rowIndex][colIndex] = this.previousGrid[rowIndex][colIndex];
+        grid[rowIndex][colIndex] = this.previousGrid[rowIndex][colIndex];
       });
     });
   }

@@ -2,10 +2,11 @@
 
 import { ArrowRightIcon, ReloadIcon, ResetIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import useSudoku from "@/hooks/useSudoku";
 
+import CommonAlertDialog from "@/components/common/commonAlertDialog";
 import Board from "@/components/sudoku/board";
 import ValuePicker from "@/components/sudoku/valuePicker";
 import { Button } from "@/components/ui/button";
@@ -29,15 +30,32 @@ export default function SudokuPage({
     getCellState,
     handleCellChange,
     handleReset,
-    isEditable,
+    isCellEditable,
+    isSudokuSolved,
     undo,
     redo,
   } = useSudoku(id, sudokuString);
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
+  const [isSolvedDialogOpen, setIsSolvedDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (selectedCell && isSudokuSolved) {
+      setIsSolvedDialogOpen(true);
+    } else {
+      setIsSolvedDialogOpen(false);
+    }
+  }, [isSudokuSolved]);
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="w-full max-w-[540px] mt-20 mx-20">
+      <CommonAlertDialog
+        actionText="Continue"
+        description="You have solved the Sudoku."
+        isOpen={isSolvedDialogOpen}
+        setIsOpen={setIsSolvedDialogOpen}
+        title="Congratulations!"
+      />
+      <div className="w-full max-w-[540px] m-4 md:mt-20 md:mx-20">
         <div className="flex w-full justify-between">
           <div className="flex gap-x-4 items-center">
             <Heading level="heading3" tag="h3">
@@ -95,7 +113,7 @@ export default function SudokuPage({
         />
         {selectedCell && (
           <ValuePicker
-            isDisabled={!isEditable(selectedCell.row, selectedCell.col)}
+            isDisabled={!isCellEditable(selectedCell.row, selectedCell.col)}
             setValue={(val) => {
               handleCellChange(selectedCell.row, selectedCell.col, val);
               setSelectedCell({ ...selectedCell, value: val });

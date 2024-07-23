@@ -18,8 +18,8 @@ export default function ValuePicker({
   isDisabled = false,
 }: ValuePickerProps) {
   return (
-    <div className="flex gap-3 items-center justify-center mt-10">
-      <div className="flex gap-3">
+    <div className="flex gap-3 items-center justify-center mt-4 md:mt-10">
+      <div className="flex gap-3 flex-wrap">
         {Array.from({ length: 9 }, (_, i) => i + 1).map((val) => (
           <Button
             key={val}
