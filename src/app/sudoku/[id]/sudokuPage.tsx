@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 
 import useSudoku from "@/hooks/useSudoku";
 
+import CommonAlertDialog from "@/components/common/commonAlertDialog";
 import Board from "@/components/sudoku/board";
 import ValuePicker from "@/components/sudoku/valuePicker";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 
 import type { Cell } from "@/types/types";
-import CommonAlertDialog from "@/components/common/commonAlertDialog";
 
 type SudokuPageProps = {
   id: string;
@@ -49,11 +49,11 @@ export default function SudokuPage({
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <CommonAlertDialog
-        title="Congratulations!"
-        description="You have solved the Sudoku."
         actionText="Continue"
+        description="You have solved the Sudoku."
         isOpen={isSolvedDialogOpen}
         setIsOpen={setIsSolvedDialogOpen}
+        title="Congratulations!"
       />
       <div className="w-full max-w-[540px] m-4 md:mt-20 md:mx-20">
         <div className="flex w-full justify-between">

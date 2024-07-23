@@ -11,14 +11,14 @@ import {
 } from "@/components/ui/alert-dialog";
 
 type CommonAlertDialogProps = {
-  triggerText?: string;
-  title?: string;
-  description?: string;
-  cancelText?: string;
   actionText?: string;
-  onAction?: () => void;
+  cancelText?: string;
+  description?: string;
   isOpen?: boolean;
+  onAction?: () => void;
   setIsOpen?: (isOpen: boolean) => void;
+  title?: string;
+  triggerText?: string;
 };
 
 export default function CommonAlertDialog({
