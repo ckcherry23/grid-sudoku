@@ -29,7 +29,8 @@ export default function SudokuPage({
     getCellState,
     handleCellChange,
     handleReset,
-    isEditable,
+    isCellEditable,
+    isSudokuSolved,
     undo,
     redo,
   } = useSudoku(id, sudokuString);
@@ -95,7 +96,7 @@ export default function SudokuPage({
         />
         {selectedCell && (
           <ValuePicker
-            isDisabled={!isEditable(selectedCell.row, selectedCell.col)}
+            isDisabled={!isCellEditable(selectedCell.row, selectedCell.col)}
             setValue={(val) => {
               handleCellChange(selectedCell.row, selectedCell.col, val);
               setSelectedCell({ ...selectedCell, value: val });
