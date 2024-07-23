@@ -4,6 +4,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "vitest",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
@@ -32,10 +33,12 @@
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.0.0",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
     "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "encoding": "^0.1.13",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
@@ -44,8 +47,10 @@
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-typescript-sort-keys": "^3.2.0",
     "husky": "^9.0.11",
+    "jsdom": "^24.1.1",
     "lint-staged": "^15.2.7",
     "prettier": "^3.3.2",
-    "supabase": ">=1.8.1"
+    "supabase": ">=1.8.1",
+    "vitest": "^2.0.4"
   }
 }
