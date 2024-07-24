@@ -26,6 +26,7 @@ describe("SudokuPage", () => {
     expect(screen.getByTitle("Cell 0, 3")).toHaveTextContent("9");
 
     fireEvent.click(screen.getByTitle("Erase"));
+    expect(screen.getByTitle("Cell 0, 3")).toBeEmptyDOMElement();
   });
 
   it("handles sudoku reset correctly", () => {
@@ -49,6 +50,9 @@ describe("SudokuPage", () => {
     });
 
     fireEvent.click(screen.getByTitle("Erase"));
+    await waitFor(() => {
+      expect(screen.queryByText("Congratulations!")).toBeNull();
+    });
   });
 
   it("handles undo and redo actions correctly", async () => {
