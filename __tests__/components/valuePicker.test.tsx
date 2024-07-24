@@ -28,15 +28,11 @@ describe("ValuePicker", () => {
 
     // Check if all value buttons are disabled
     for (let i = 1; i <= 9; i++) {
-      expect(screen.getByText(i.toString())).toHaveClass(
-        "bg-gray-300 text-gray-400",
-      );
+      expect(screen.getByText(i.toString())).toBeDisabled();
     }
 
     // Check if erase button is disabled
-    expect(screen.getByRole("button", { name: /Erase/i })).toHaveClass(
-      "bg-gray-300 text-gray-400",
-    );
+    expect(screen.getByRole("button", { name: /Erase/i })).toBeDisabled();
   });
 
   it("calls setValue with correct value when a value button is clicked", () => {
@@ -133,8 +129,6 @@ describe("ValuePicker", () => {
       <ValuePicker value={null} setValue={mockSetValue} isDisabled={false} />,
     );
 
-    expect(screen.getByRole("button", { name: /Erase/i })).toHaveClass(
-      "bg-gray-300 text-gray-400",
-    );
+    expect(screen.getByRole("button", { name: /Erase/i })).toBeDisabled();
   });
 });
