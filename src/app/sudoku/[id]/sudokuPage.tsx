@@ -64,6 +64,7 @@ export default function SudokuPage({
             <div className="flex gap-x-1">
               <Button
                 size="icon"
+                title="Undo"
                 variant="outline"
                 onClick={() => {
                   undo();
@@ -74,6 +75,7 @@ export default function SudokuPage({
               </Button>
               <Button
                 size="icon"
+                title="Redo"
                 variant="outline"
                 onClick={() => {
                   redo();
@@ -87,6 +89,7 @@ export default function SudokuPage({
           <div className="flex gap-x-3">
             <Button
               className="gap-x-2 text-red-500 rounded-[18px] hover:text-red-500"
+              title="Reset"
               variant="outline"
               onClick={() => {
                 handleReset();
@@ -98,7 +101,10 @@ export default function SudokuPage({
             </Button>
             {nextId && (
               <Link href={`${nextId}`}>
-                <Button className="stroke-[0.5px] stroke-white rounded-[18px] gap-x-2">
+                <Button
+                  className="stroke-[0.5px] stroke-white rounded-[18px] gap-x-2"
+                  title="Next"
+                >
                   Next
                   <ArrowRightIcon className="w-5 h-5" />
                 </Button>

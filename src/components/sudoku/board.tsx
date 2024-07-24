@@ -28,6 +28,7 @@ export default function Board({
               rowIndex as GridCoordinate,
               colIndex as GridCoordinate,
             )}
+            title={`Cell ${rowIndex}, ${colIndex}`}
             value={cell}
             onClick={() =>
               setSelectedCell({
