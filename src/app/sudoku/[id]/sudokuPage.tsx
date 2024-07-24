@@ -50,7 +50,7 @@ export default function SudokuPage({
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <CommonAlertDialog
         actionText="Continue"
-        description="You have solved the Sudoku."
+        description="You have solved the Sudoku :)"
         isOpen={isSolvedDialogOpen}
         setIsOpen={setIsSolvedDialogOpen}
         title="Congratulations!"
