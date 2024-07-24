@@ -26,6 +26,12 @@ Deployed on Vercel at [grid-sudoku.vercel.app](https://grid-sudoku.vercel.app).
   - [Installation](#installation)
 - [Architecture](#architecture)
   - [Components](#components)
+  - [State Management](#state-management)
+  - [Data Fetching](#data-fetching)
+- [Future Improvements](#future-improvements)
+  - [Features](#features)
+  - [Accessibility](#accessibility)
+  - [Optimization](#optimization)
 - [Testing](#testing)
   - [Unit Tests](#unit-tests)
   - [End-to-End Tests](#end-to-end-tests)
@@ -99,15 +105,21 @@ Supabase's `createServerClient()` is used to create an SSR client to fetch the S
 
 ### Features
 
-- Keyboard shortcuts and navigation for selecting cells and entering numbers to improve **accessibility**.
 - Sudoku selection screen to choose from a variety of difficulty levels.
 - Timer to track the time taken to complete the puzzle.
+- Multiplayer mode to compete with friends or other players in real-time.
 
-### Performance
+### Accessibility
 
-- Optimize the performance of the Sudoku board rendering and cell updates.
-- Implement lazy loading for the Sudoku puzzles to reduce the initial load time.
-- Use Web Workers to offload the computation of the Sudoku solver and improve responsiveness.
+- Keyboard shortcuts and navigation for selecting cells and entering numbers to improve accessibility.
+- Add ARIA attributes to improve screen reader support and make the app more accessible.
+
+### Optimization
+
+- Use the `react-query` library to cache the fetched data and improve the performance of the data fetching.
+- Explore using Web Workers to offload the computation of the Sudoku solver and improve responsiveness.
+- Add Zod validation to ensure any user input is valid.
+- Measure the test coverage to identify areas that need more testing.
 
 ## Testing
 
@@ -115,7 +127,9 @@ This project has both unit tests and end-to-end tests.
 
 ### Unit Tests
 
-Vitest and React Testing Library are used for the unit and component tests. To run the unit tests, use the following command:
+Vitest and React Testing Library are used for the unit and component tests. These tests are located in the `__tests__` directories and have the `.test.tsx` extension. They use mocks and Jest matchers to test the components, hooks and utility functions.
+
+To run the unit tests, use the following command:
 
 ```bash
 pnpm test
@@ -123,13 +137,15 @@ pnpm test
 
 ### End-to-End Tests
 
-Cypress is used for the end-to-end tests. To run the end-to-end tests, use the following command:
+Cypress is used for the end-to-end tests. The tests are located in the `cypress` directory and have the `.cy.ts` extension. These tests simulate user interactions and test the app's functionality.
+
+To run the end-to-end tests in the browser, use the following command to open the Cypress Test Runner:
 
 ```bash
 pnpm cypress:open
 ```
 
-This will open the Cypress Test Runner, where you can run the tests in the browser. You can also run the tests in headless mode using the following command:
+You can also run the tests in headless mode using the following command:
 
 ```bash
 pnpm cypress:run
