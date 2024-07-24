@@ -10,6 +10,8 @@ export async function getFirstSudokuId() {
     .single();
 
   if (error) {
+    console.error(error); // eslint-disable-line no-console
+
     return null;
   }
 
@@ -25,6 +27,8 @@ export async function getSudokuById(id: string) {
     .single();
 
   if (error) {
+    console.error(error); // eslint-disable-line no-console
+
     return null;
   }
 
