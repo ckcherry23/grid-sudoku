@@ -34,5 +34,5 @@ jobs:
           version: 8.15.1
       - name: Install modules
         run: pnpm install
-      - name: Run end-to-end tests
-        run: pnpm cypress:run
+      - name: Cypress tests
+        uses: cypress-io/github-action@v2
