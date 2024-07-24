@@ -9,8 +9,6 @@ describe("ValuePicker", () => {
     vi.clearAllMocks();
   });
 
-  afterEach(cleanup);
-
   it("renders all value buttons and erase button", () => {
     render(
       <ValuePicker value={null} setValue={mockSetValue} isDisabled={false} />,

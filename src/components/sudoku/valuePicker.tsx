@@ -29,6 +29,7 @@ export default function ValuePicker({
                 "bg-gray-300 text-gray-400 hover:bg-gray-300 hover:text-gray-400",
             )}
             size="icon"
+            title={`Set value as ${val}`}
             variant={val === value ? "default" : "secondary"}
             {...(!isDisabled
               ? { onClick: () => setValue(val as PossibleValue) }
@@ -44,6 +45,7 @@ export default function ValuePicker({
           (isDisabled || !value) &&
             "bg-gray-300 text-gray-400 hover:bg-gray-300 hover:text-gray-400",
         )}
+        title="Erase"
         variant="secondary"
         {...(!isDisabled ? { onClick: () => setValue(null) } : {})}
       >

@@ -37,8 +37,6 @@ describe("Board", () => {
     mockGetCellState.mockImplementation(() => cellState);
   });
 
-  afterEach(cleanup);
-
   it("renders correctly with the provided grid", () => {
     render(
       <Board

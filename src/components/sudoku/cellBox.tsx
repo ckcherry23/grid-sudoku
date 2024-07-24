@@ -8,6 +8,7 @@ import { type PossibleValue } from "@/types/types";
 type CellBoxProps = {
   cellState: CellState;
   onClick: () => void;
+  title?: string;
   value: PossibleValue;
 };
 
@@ -47,7 +48,12 @@ const borderStyles = {
   topRightCorner: "rounded-tr-2xl",
 };
 
-export default function CellBox({ value, onClick, cellState }: CellBoxProps) {
+export default function CellBox({
+  value,
+  onClick,
+  cellState,
+  title,
+}: CellBoxProps) {
   const fill = cellState.fillType;
   const highlight = cellState.highlightType;
   const { borderTypes } = cellState;
@@ -58,6 +64,7 @@ export default function CellBox({ value, onClick, cellState }: CellBoxProps) {
         cellBoxVariants({ fill, highlight }),
         borderTypes.map((b) => borderStyles[b]),
       )}
+      title={title}
       type="button"
       onClick={onClick}
     >

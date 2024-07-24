@@ -20,8 +20,6 @@ describe("CellBox", () => {
     } as CellState,
   };
 
-  afterEach(cleanup);
-
   it("renders correctly with default props", () => {
     render(<CellBox {...defaultProps} />);
 
