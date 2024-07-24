@@ -44,9 +44,9 @@ Deployed on Vercel at [grid-sudoku.vercel.app](https://grid-sudoku.vercel.app).
 
 ### Pre-requisites
 
-- Node.js (v20.0.0 or higher)
-- [pnpm](https://pnpm.io/)
-- [Supabase](https://supabase.io/) project
+- Node.js (v20 or higher)
+- pnpm
+- Supabase project
 
 ### Installation
 
@@ -127,7 +127,7 @@ This project has both unit tests and end-to-end tests.
 
 ### Unit Tests
 
-Vitest and React Testing Library are used for the unit and component tests. These tests are located in the `__tests__` directories and have the `.test.tsx` extension. They use mocks and Jest matchers to test the components, hooks and utility functions.
+Vitest and React Testing Library are used for the unit and component tests. These tests are located in the `__tests__` directory and have the `.test.tsx` extension. They use mocks and Jest matchers to test the components, hooks and utility functions.
 
 To run the unit tests, use the following command:
 
