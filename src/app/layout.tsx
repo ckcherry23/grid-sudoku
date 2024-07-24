@@ -12,7 +12,7 @@ const fontSans = Inter({
 });
 
 export const metadata = {
-  description: "A Sudoku game built with ♥️",
+  description: "A Sudoku game built with Next.js",
   metadataBase: new URL(defaultUrl),
   title: "Grid Sudoku",
 };
